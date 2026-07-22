@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-theme">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Friendd — Discover and connect with people near you" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>Friendd — Connect With People Near You</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300d4ff'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='%230a0a0f' font-size='18' font-weight='bold' font-family='sans-serif'%3EF%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <style>
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0f;
+    }
+    #loading-overlay.hidden {
+      display: none !important;
+    }
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(0,212,255,0.15);
+      border-top-color: #00d4ff;
+      animation: boot-spin 0.8s linear infinite;
+    }
+    @keyframes boot-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+  <div class="bg-mesh" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div id="navbar-root"></div>
+  <div id="app" role="main"></div>
+  <script>
+    (function() {
+      var bootGuard = setTimeout(function() {
+        var el = document.getElementById('loading-overlay');
+        if (el) el.classList.add('hidden');
+      }, 1800);
+      window.addEventListener('error', function() {
+        clearTimeout(bootGuard);
+        var el = document.getElementById('loading-overlay');
+        if (el) el.classList.add('hidden');
+      });
+    })();
+  </script>
+  <script src="./js/utils/storage.js"></script>
+  <script src="./js/utils/dom.js"></script>
+  <script src="./js/utils/router.js"></script>
+  <script src="./js/utils/format.js"></script>
+  <script src="./js/services/auth.js"></script>
+  <script src="./js/services/geolocation.js"></script>
+  <script src="./js/components/radar.js"></script>
+  <script src="./js/components/navbar.js"></script>
+  <script src="./js/pages/home.new.js"></script>
+  <script src="./js/pages/login.js"></script>
+  <script src="./js/pages/signup.js"></script>
+  <script src="./js/pages/discover.js"></script>
+  <script src="./js/pages/profile.js"></script>
+  <script src="./js/pages/settings.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+/* ============================================================
+   MAIN — Global Styles & App Layout
+   Friendd — Social Discovery Platform
+   ============================================================ */
+
+/* ---- Google Fonts Import ---- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ---- Theme ---- */
+@import './theme.css';
+
+/* ---- Reset ---- */
+@import './reset.css';
+
+/* ---- Animations ---- */
+@import './animations.css';
+
+/* ---- Utilities ---- */
+@import './utilities.css';
+
+/* ---- Components ---- */
+@import './components/buttons.css';
+@import './components/input.css';
+@import './components/glass-card.css';
+@import './components/navbar.css';
+@import './components/radar.css';
+
+/* ============================================================
+   App Shell Layout
+   ============================================================ */
+
+#app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--header-height);
+  transition: opacity var(--transition-base);
+}
+
+.container {
+  width: min(100%, var(--max-content-width));
+  margin: 0 auto;
+  padding-inline: var(--space-4);
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+}
+
+/* ============================================================
+   Background Effects
+   ============================================================ */
+
+/* Animated gradient mesh background */
+.bg-mesh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-mesh::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(124, 77, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 70%);
+  animation: mesh-float 20s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-5%, -5%) rotate(3deg); }
+}
+
+/* Grid overlay */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ============================================================
+   Page Sections
+   ============================================================ */
+
+.section {
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+  display: inline-block;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -0.75rem;
+  transform: translateX(-50%);
+  width: 4rem;
+  height: 0.25rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-accent), #7c4dff);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ============================================================
+   Hero Section
+   ============================================================ */
+
+.hero {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(3rem, 7vw, 5rem) var(--space-4) clamp(4rem, 8vw, 6rem);
+  position: relative;
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.hero::before {
+  width: 16rem;
+  height: 16rem;
+  left: 6%;
+  top: 10%;
+  background: rgba(0, 212, 255, 0.16);
+}
+
+.hero::after {
+  width: 14rem;
+  height: 14rem;
+  right: 8%;
+  bottom: 12%;
+  background: rgba(124, 77, 255, 0.16);
+}
+
+.hero-content {
+  max-width: 56rem;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  background: rgba(10, 10, 15, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 1rem;
+  background: var(--color-accent-dim);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  margin-bottom: var(--space-6);
+  animation: fade-in-up 0.6s ease forwards;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.03em;
+  animation: fade-in-up 0.6s ease 0.1s forwards;
+  opacity: 0;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, var(--color-accent), #7c4dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-description {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: var(--color-text-secondary);
+  max-width: 42rem;
+  margin: 0 auto var(--space-8);
+  line-height: var(--line-height-relaxed);
+  animation: fade-in-up 0.6s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  animation: fade-in-up 0.6s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.hero-actions .btn {
+  min-width: 10.5rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: var(--space-8);
+  text-align: center;
+  position: relative;
+}
+
+.feature-card .icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-4);
+  border-radius: 50%;
+  background: rgba(0, 212, 255, 0.12);
+  font-size: 1.5rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 212, 255, 0.18);
+}
+
+.feature-card h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.feature-card p {
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================
+   Auth Pages
+   ============================================================ */
+
+.auth-shell {
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 3rem) var(--space-4);
+}
+
+.auth-card {
+  width: min(100%, 28rem);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+.auth-card__header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.auth-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.auth-brand .navbar-logo-icon {
+  margin: 0;
+}
+
+.auth-brand h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.auth-brand p {
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.auth-form__error {
+  min-height: 1.25rem;
+  margin-top: -0.25rem;
+  color: var(--color-error);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.auth-footer a {
+  font-weight: var(--font-weight-medium);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .section-title { font-size: var(--font-size-2xl); }
+  .hero { padding-top: var(--space-12); }
+  .hero-content { padding: var(--space-6); }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn { width: 100%; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .auth-card { padding: var(--space-6); }
+}
+
+/* ============================================================
+   Utility: Page Load Animation
+   ============================================================ */
+
+.page-enter {
+  animation: fade-in-up 0.4s ease forwards;
+}
+
+/* ============================================================
+   Loading Spinner Overlay
+   ============================================================ */
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-toast);
+  transition: opacity var(--transition-base);
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid var(--color-bg-tertiary);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
