@@ -88,12 +88,8 @@
     router.add('*', function() {
       var app = document.getElementById('app');
       if (app) {
-        app.innerHTML = '<div class="section" style="min-height:60vh;display:flex;align-items:center;justify-content:center;">' +
-          '<div class="text-center page-enter">' +
-          '<p class="text-accent" style="font-size:4rem;font-weight:800;line-height:1;">404</p>' +
-          '<h1 class="section-title" style="margin-top:var(--space-4);">Page Not Found</h1>' +
-          '<p class="section-subtitle" style="margin-bottom:var(--space-8);">The page you are looking for does not exist or has been moved.</p>' +
-          '<a href="/" class="btn btn-primary" data-link>Go Home</a></div>';
+        app.innerHTML = renderHomePage();
+        initHomePage();
       }
     });
   }

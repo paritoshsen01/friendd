@@ -19,13 +19,32 @@ var router = null;
     return path;
   }
 
+  function getBasePath() {
+    var pathname = window.location.pathname || '/';
+    if (!pathname || pathname === '/') return '/';
+    if (pathname.indexOf('/friendd') === 0) return '/friendd';
+    return '/';
+  }
+
+  function toAppPath(path) {
+    path = normalizePath(path);
+    var basePath = getBasePath();
+    if (basePath === '/') return path;
+    return path === '/' ? basePath + '/' : basePath + path;
+  }
+
   function getCurrentPath() {
     if (IS_FILE_PROTOCOL) {
       var hash = window.location.hash || '#/';
       var path = normalizePath(hash.replace(/^#/, '') || '/');
       return path;
     } else {
-      return normalizePath(window.location.pathname || '/');
+      var pathname = window.location.pathname || '/';
+      var basePath = getBasePath();
+      if (basePath !== '/' && pathname.indexOf(basePath) === 0) {
+        pathname = pathname.slice(basePath.length) || '/';
+      }
+      return normalizePath(pathname);
     }
   }
 
@@ -34,7 +53,7 @@ var router = null;
     if (IS_FILE_PROTOCOL) {
       window.location.hash = '#' + path;
     } else {
-      history.pushState({}, '', path);
+      history.pushState({}, '', toAppPath(path));
     }
   }
 
